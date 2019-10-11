@@ -13,9 +13,11 @@ return {
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
+    '~/.setkbdmode.sh', -- My keyboard mode needs to be set to unicode (which this script does). This line can be removed by most people.
     'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
+    'parcellite', -- Needed for an actually functional clipboard
+    'xscreensaver -no-splash', -- The bouncing cows screensaver is a good one. 10/10
     'blueberry-tray', -- Bluetooth tray icon
-    'xfce4-power-manager', -- Power manager
-    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)' -- credential manager
+    '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(keychain --eval)' -- credential manager
   }
 }
