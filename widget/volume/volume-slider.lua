@@ -15,16 +15,16 @@ local slider =
 slider:connect_signal(
   'property::value',
   function()
-    spawn('amixer -D pulse sset Master ' .. slider.value .. '%')
+    spawn('pamixer --set-volume ' .. slider.value)
   end
 )
 
 watch(
-  [[bash -c "amixer -D pulse sget Master"]],
+  [[bash -c "pamixer --get-volume"]],
   1,
   function(_, stdout)
-    local mute = string.match(stdout, '%[(o%D%D?)%]')
-    local volume = string.match(stdout, '(%d?%d?%d)%%')
+    --local mute = string.match(stdout, '%[(o%D%D?)%]')
+    local volume = string.match(stdout, '(%d?%d?%d)')
     slider:set_value(tonumber(volume))
     collectgarbage('collect')
   end
