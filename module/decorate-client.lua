@@ -17,15 +17,12 @@ local function renderClient(client, mode)
   client.maximized_horizontal = false
   client.maximized_vertical = false
 
-  if client.rendering_mode == 'maximized' then
+  if client.rendering_mode == 'tiled' or mode == 'floating' then
+    client.border_width = beautiful.border_width
+  elseif client.rendering_mode == 'maximized' then
     client.border_width = 0
     client.shape = function(cr, w, h)
       gears.shape.rectangle(cr, w, h)
-    end
-  elseif client.rendering_mode == 'tiled' then
-    client.border_width = beautiful.border_width
-    client.shape = function(cr, w, h)
-      gears.shape.rounded_rect(cr, w, h, 8)
     end
   end
 end
@@ -34,6 +31,7 @@ local changesOnScreenCalled = false
 
 local function changesOnScreen(currentScreen)
   local tagIsMax = currentScreen.selected_tag ~= nil and currentScreen.selected_tag.layout == awful.layout.suit.max
+  local tagIsFloating = currentScreen.selected_tag ~= nil and currentScreen.selected_tag.layout == awful.layout.suit.floating
   local clientsToManage = {}
 
   for _, client in pairs(currentScreen.clients) do
@@ -42,7 +40,9 @@ local function changesOnScreen(currentScreen)
     end
   end
 
-  if (tagIsMax or #clientsToManage == 1) then
+  if (tagIsFloating) then
+    currentScreen.client_mode = 'floating'
+  elseif (tagIsMax or #clientsToManage == 1) then
     currentScreen.client_mode = 'maximized'
   else
     currentScreen.client_mode = 'tiled'
