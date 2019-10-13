@@ -54,11 +54,12 @@ local globalKeys =
   ),
   -- Programms
   awful.key(
-    {modkey},
+    {modkey, altkey, "Control"},
     'l',
     function()
       awful.spawn(apps.default.lock)
-    end
+    end,
+    {description = 'Lock the screen', group = 'client'}
   ),
   awful.key(
     {},
@@ -227,31 +228,31 @@ local globalKeys =
       awful.spawn('pamixer -t')
     end,
     {description = 'toggle mute', group = 'hotkeys'}
-  ),
-  awful.key(
-    {},
-    'XF86AudioNext',
-    function()
-      --
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
-  ),
-  awful.key(
-    {},
-    'XF86PowerDown',
-    function()
-      --
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
-  ),
-  awful.key(
-    {},
-    'XF86PowerOff',
-    function()
-      _G.exit_screen_show()
-    end,
-    {description = 'toggle mute', group = 'hotkeys'}
   )
+  --awful.key(
+    --{},
+    --'XF86AudioNext',
+    --function()
+      ----
+    --end,
+    --{description = 'toggle mute', group = 'hotkeys'}
+  --),
+  --awful.key(
+    --{},
+    --'XF86PowerDown',
+    --function()
+      ----
+    --end,
+    --{description = 'toggle mute', group = 'hotkeys'}
+  --),
+  --awful.key(
+    --{},
+    --'XF86PowerOff',
+    --function()
+      --_G.exit_screen_show()
+    --end,
+    --{description = 'toggle mute', group = 'hotkeys'}
+  --)
 )
 
 -- Bind all key numbers to tags.
