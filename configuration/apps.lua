@@ -7,7 +7,7 @@ return {
   default = {
     terminal = 'termite -c ' .. filesystem.get_configuration_dir(),
     editor = 'gvim',
-    rofi = 'rofi -dpi ' .. get_dpi() .. ' -width ' .. with_dpi(400) .. ' -show drun -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi.rasi',
+    rofi = 'rofi -run-list-command "' .. filesystem.get_configuration_dir() .. 'scripts/aliases.sh" -run-command "/usr/bin/zsh -i -c \'{cmd}\'" -dpi ' .. get_dpi() .. ' -width ' .. with_dpi(400) .. ' -show drun -modi "run,drun" -theme ' .. filesystem.get_configuration_dir() .. '/configuration/rofi.rasi',
     lock = 'i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff',
     quake = 'termite -c ' .. filesystem.get_configuration_dir() .. '/configuration/termite.config --name QuakeTerminal'
   },
